@@ -1,0 +1,23 @@
+{
+  "name": "my_todolist",
+  "version": "1.0.0",
+  "description": "Todo list with node.js,express.js and mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "author": "Shubham Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express.js": "^1.0.0",
+    "mongoose": "^5.11.16",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.18"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

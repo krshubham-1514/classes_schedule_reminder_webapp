@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <title>Todo List</title>
+</head>
+<style>
+    .add_new_class{
+        width:400px;
+        float:right;
+    }
+</style>
+<body>
+    <div class="container" >
+
+        <div class="add_new_class">
+            <div class="card-header">
+                <h3>Add New Class</h3>
+            </div>
+            <div class="card-body">
+                <form  action="/api/add_new_class" method="post">
+                    <input class="form-control" type="text" name="class_name" placeholder="Class Name">
+                    <br>
+                    <label for="start_time"><strong>Class Start Time</strong> </label>
+                    <input class="form-control"  type="time" name="start_time" placeholder="Class Start Time">
+                    <br>
+                    <label for="end_time"><strong>Class End Time</strong></label>
+                    <input class="form-control" type="time" name="end_time">
+                    <br>
+                    <label for="day"><strong>Class Day</strong></label>
+                    <select class="form-control" name="day" id="day">
+                        <option value="1">Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thrusday</option>
+                        <option value="5">Friday</option>
+                    </select>
+                    <br>
+                    <input type="text" class="form-control" name="class_meeting_link" placeholder="Paste Class meeting Link Here"/>
+                    <br>
+
+                    <input  class="btn btn-success" type="submit" value="submit" id="btn_submit">
+                
+                </form>
+            </div>
+        </div>
+        </div>
+        <div class="added_class_list">
+            <div class="card list_of_classes">
+                <div class="card-header">
+                    <h3>Added class List</h3>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead><tr><th>Class Name</th><th>Start Time</th><th>End Time</th><th>Link</th><th>Delete Class</th></tr></thead>
+                    <% data.forEach((item)=>{%> 
+                         <tr style="border:1px solid grey;"><td style="border:1px solid grey;"><%= item.className %></td><td style="border:1px solid grey;"><%= item.startTime %></td><td style="border:1px solid grey;"><%= item.endTime %></td><td><%= item.link %></td><td class="btn_delete" value="<%= item._id %>" style="cursor:pointer;text-align:center;border:1px solid grey;color:black;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                          </svg></td></tr> 
+                    <%});%> 
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    
+    </div>
+
+    <script>
+        let delete_btn=document.querySelectorAll('.btn_delete');
+        delete_btn.forEach(function(btn) {
+            btn.addEventListener('click',(e) => {
+                
+                fetch('/api/delete_class?id='+e.target.getAttribute('value'),{
+                    method: 'DELETE'
+                })
+                
+                window.location.reload();
+            })
+        })
+    </script>
+</body>
+</html>
