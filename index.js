@@ -111,7 +111,7 @@ const check_time=async()=>{
 
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`);
-    
+    console.log(`Working`);
     setInterval(check_time, 1000 * 60 * 60);
 })
 
